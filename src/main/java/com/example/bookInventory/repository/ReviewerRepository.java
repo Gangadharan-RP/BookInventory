@@ -1,5 +1,11 @@
 package com.example.bookInventory.repository;
 
-public class ReviewerRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.bookInventory.entity.Reviewer;
+
+public interface ReviewerRepository extends JpaRepository<Reviewer, Integer> {
+
+	Reviewer getByReviewerId(Integer reviewerId);
 
 }

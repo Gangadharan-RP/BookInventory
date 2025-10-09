@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,11 @@ public class ShoppingCartController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<ShoppingCart> getCartByUserId(@PathVariable Integer userId){
 		return ResponseEntity.ok(shoppingCartService.getCartByUserId(userId));
+	}
+	
+	@PostMapping("/post")
+	public ResponseEntity<ShoppingCart> addCart(@RequestBody ShoppingCart shoppingCart){
+		return ResponseEntity.ok(shoppingCartService.addCart(shoppingCart));
 	}
 	
 	@PutMapping("/update/isbn/{userId}")

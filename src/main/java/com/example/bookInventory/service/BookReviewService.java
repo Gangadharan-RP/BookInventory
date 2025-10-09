@@ -1,5 +1,5 @@
 package com.example.bookInventory.service;
 
-public interface ReviewService {
+public interface BookReviewService {
 
 }

@@ -12,7 +12,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	
 	@Autowired
 	private ShoppingCartRepository shoppingCartRepository;
-
+	
+	@Override
+	public ShoppingCart addCart(ShoppingCart shoppingCart) {
+	return shoppingCartRepository.save(shoppingCart);
+	}
+	
 	@Override
 	public ShoppingCart getCartByUserId(Integer userId) {
 		// TODO Auto-generated method stub
