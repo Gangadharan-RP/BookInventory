@@ -58,6 +58,7 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		Book book = getBookByIsbn(isbn);
 		book.setTitle(newTitle);
+		bookRepository.save(book);
 		return book;
 	}
 
@@ -66,6 +67,7 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		Book book = getBookByIsbn(isbn);
 		book.setDescription(newDesc);
+		bookRepository.save(book);
 		return book;
 	}
 
@@ -74,7 +76,8 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		Book book = getBookByIsbn(isbn);
 		book.setCategory(newCategory);
-		return null;
+		bookRepository.save(book);
+		return book;
 	}
 
 	@Override
@@ -82,7 +85,8 @@ public class BookServiceImpl implements BookService {
 		// TODO Auto-generated method stub
 		Book book = getBookByIsbn(isbn);
 		book.setPublisherId(newPublisher);
-		return null;
+		bookRepository.save(book);
+		return book;
 	}
 
 }

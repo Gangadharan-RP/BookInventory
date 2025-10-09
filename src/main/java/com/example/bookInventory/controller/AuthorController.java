@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bookInventory.entity.Author;
+import com.example.bookInventory.entity.Book;
 import com.example.bookInventory.service.AuthorService;
 
 @RestController
@@ -56,10 +57,10 @@ public class AuthorController {
 		return ResponseEntity.ok(authorService.updateAuthorLastName(authorId, lastName));
 	}
 	
-//	@GetMapping("/books/{authorId}")
-//	public ResponseEntity<List<Book>> getBooksByAuthorId(@PathVariable Long authorId){
-//		return ResponseEntity.ok(authorService.getBooksByAuthorId(authorId));
-//	}
+	@GetMapping("/books/{authorId}")
+	public ResponseEntity<List<Book>> getBookByAuthorId(@PathVariable Long authorId){
+		return ResponseEntity.ok(authorService.getBookByAuthorId(authorId));
+	}
 	
 	
 }

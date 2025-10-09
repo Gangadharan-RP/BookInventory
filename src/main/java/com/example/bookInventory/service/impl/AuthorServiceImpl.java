@@ -1,12 +1,17 @@
 package com.example.bookInventory.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.bookInventory.entity.Author;
+import com.example.bookInventory.entity.Book;
+import com.example.bookInventory.entity.BookAuthor;
 import com.example.bookInventory.repository.AuthorRepository;
+import com.example.bookInventory.repository.BookAuthorRepository;
+import com.example.bookInventory.repository.BookRepository;
 import com.example.bookInventory.service.AuthorService;
 
 
@@ -14,8 +19,10 @@ import com.example.bookInventory.service.AuthorService;
 public class AuthorServiceImpl implements AuthorService {
 	@Autowired
 	private AuthorRepository authorRepository;
-//	@Autowired
-//	private BookRepository bookRepository;
+	@Autowired
+	private BookRepository bookRepository;
+	@Autowired
+	private BookAuthorRepository bookAuthorRepository;
 
 	@Override
 	public Author addAuthor(Author author) {
@@ -65,10 +72,13 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	public List<Author> getBookByAuthorId(Long authorId) {
+	public List<Book> getBookByAuthorId(Long authorId) {
 		// TODO Auto-generated method stub
-		return null;
-		//return bookRepository.findBookByAuthorId(authorId);
+		List<BookAuthor> bookAuthors = bookAuthorRepository.findByIdAuthorId(authorId);
+		List<String> isbns = bookAuthors.stream()
+				.map(ba -> ba.getId().getIsbn())
+				.collect(Collectors.toList());
+		return bookRepository.findAllById(isbns);
 	}
 
 	@Override

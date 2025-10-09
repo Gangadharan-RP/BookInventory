@@ -3,6 +3,7 @@ package com.example.bookInventory.service;
 import java.util.List;
 
 import com.example.bookInventory.entity.Author;
+import com.example.bookInventory.entity.Book;
 
 
 public interface AuthorService {
@@ -13,6 +14,6 @@ public interface AuthorService {
 	List<Author> getAuthorByLastName(String lastName);
 	Author updateAuthorFirstName(Long authorId, String firstName);
 	Author updateAuthorLastName(Long authorId, String lastName);
-	List<Author> getBookByAuthorId(Long authorId);
+	List<Book> getBookByAuthorId(Long authorId);
 	
 }
