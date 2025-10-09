@@ -1,5 +1,12 @@
 package com.example.bookInventory.service;
 
-public interface StateService {
+import java.util.List;
 
+import com.example.bookInventory.entity.State;
+
+public interface StateService {
+	State addState(State state);
+	List<State> getAllState();
+	State getStateByCode(String code);
+	State updateStateName(String code, String name);
 }
