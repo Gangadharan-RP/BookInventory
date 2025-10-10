@@ -1,5 +1,9 @@
 package com.example.bookInventory.service;
 
-public interface PermRoleService {
+import com.example.bookInventory.entity.PermRole;
 
+public interface PermRoleService {
+	PermRole addPermRole(PermRole permRole);
+	PermRole getPermRoleById(Integer roleNumber);
+	PermRole updatePermRoleById(Integer roleNumber, String permRole);
 }
