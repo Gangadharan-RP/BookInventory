@@ -11,38 +11,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.bookInventory.entity.UserDet;
-import com.example.bookInventory.service.UserDetService;
+import com.example.bookInventory.entity.UserDetail;
+import com.example.bookInventory.service.UserDetailService;
 
 @RestController
 @RequestMapping("/api/userdetail")
-public class UserDetController {
+public class UserDetailController {
 	
 	@Autowired
-	private UserDetService userDetService;
+	private UserDetailService userDetService;
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<UserDet> getUserById(@PathVariable Integer userId){
+	public ResponseEntity<UserDetail> getUserById(@PathVariable Integer userId){
 		return ResponseEntity.ok(userDetService.getUserById(userId));
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<UserDet> addUser(@RequestBody UserDet userDetails){
+	public ResponseEntity<UserDetail> addUser(@RequestBody UserDetail userDetails){
 		return ResponseEntity.ok(userDetService.addUser(userDetails));
 	}
 	
 	@PutMapping("/update/phonenumber/{userId}")
-	public ResponseEntity<UserDet> updatePhoneNumberById(@PathVariable Integer userId, @RequestBody String phonenumber){
+	public ResponseEntity<UserDetail> updatePhoneNumberById(@PathVariable Integer userId, @RequestBody String phonenumber){
 		return ResponseEntity.ok(userDetService.updatePhoneNumber(userId, phonenumber));
 	}
 	
 	@PutMapping("/update/firstname/{userId}")
-	public ResponseEntity<UserDet> updateFirstNameById(@PathVariable Integer userId, @RequestBody String firstName){
+	public ResponseEntity<UserDetail> updateFirstNameById(@PathVariable Integer userId, @RequestBody String firstName){
 		return ResponseEntity.ok(userDetService.updateFirstName(userId, firstName));
 	}
 	
 	@PutMapping("/update/lastname/{userId}")
-	public ResponseEntity<UserDet> updateLastNameById(@PathVariable Integer userId, @RequestBody String lastName){
+	public ResponseEntity<UserDetail> updateLastNameById(@PathVariable Integer userId, @RequestBody String lastName){
 		return ResponseEntity.ok(userDetService.updateLastName(userId, lastName));
 	}
 	

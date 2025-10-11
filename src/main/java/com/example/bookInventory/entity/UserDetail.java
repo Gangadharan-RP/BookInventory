@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "userDetails")
-public class UserDet {
+public class UserDetail {
 	@Id
 	@Column(name = "userID")
 	private Integer userId;
@@ -30,11 +30,11 @@ public class UserDet {
 	@Column(name = "roleNumber")
 	private Integer roleNumber;
 
-	public UserDet() {
+	public UserDetail() {
 		super();
 	}
 
-	public UserDet(Integer userId, String lastName, String firstName, String phoneNumber, String userName,
+	public UserDetail(Integer userId, String lastName, String firstName, String phoneNumber, String userName,
 			String password, Integer roleNumber) {
 		super();
 		this.userId = userId;
