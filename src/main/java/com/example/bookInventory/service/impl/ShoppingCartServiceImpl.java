@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	private ShoppingCartRepository shoppingCartRepository;
 	
 	@Override
+	public List<ShoppingCart> getAllShoppingCart(){
+		return shoppingCartRepository.findAll();
+	}
+	
+	@Override
 	public ShoppingCart addCart(ShoppingCart shoppingCart) {
 	return shoppingCartRepository.save(shoppingCart);
 	}
@@ -21,7 +28,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	@Override
 	public ShoppingCart getCartByUserId(Integer userId) {
 		// TODO Auto-generated method stub
-		return shoppingCartRepository.getByUserId(userId);
+		ShoppingCart shoppingCart = shoppingCartRepository.getByUserId(userId);
+		if(shoppingCart==null)
+			throw new RuntimeException();
+		return shoppingCart;
 	}
 
 	@Override

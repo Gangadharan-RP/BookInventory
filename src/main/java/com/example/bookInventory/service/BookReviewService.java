@@ -1,5 +1,7 @@
 package com.example.bookInventory.service;
 
+import java.util.List;
+
 import com.example.bookInventory.entity.BookReview;
 
 public interface BookReviewService {
@@ -7,4 +9,5 @@ public interface BookReviewService {
 	BookReview addBookReview(BookReview bookReview);
 	BookReview updateRatingByIsbn(String isbn, Integer rating);
 	BookReview updateCommentByIsbn(String isbn, String comment);
+	List<BookReview> getAllBookReview();
 }

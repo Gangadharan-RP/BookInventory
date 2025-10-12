@@ -1,6 +1,11 @@
 package com.example.bookInventory.controller;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,14 +25,34 @@ public class PermRoleController {
 	@Autowired
 	private PermRoleService permRoleService;
 	
+	@GetMapping()
+	public ResponseEntity<List<PermRole>> getAllPermRole(){
+		return ResponseEntity.ok(permRoleService.getAllPermRole());
+	}
+	
 	@GetMapping("/{roleNumber}")
 	public ResponseEntity<PermRole> getPermRoleByRole(@PathVariable Integer roleNumber){
 		return ResponseEntity.ok(permRoleService.getPermRoleById(roleNumber));
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<PermRole> addPermRole(@RequestBody PermRole permRole){
-		return ResponseEntity.ok(permRoleService.addPermRole(permRole));
+	public ResponseEntity<Map<String, String>> addPermRole(@RequestBody PermRole permRole){
+		Map<String, String> response = new LinkedHashMap<>();
+		try {
+
+				permRoleService.getPermRoleById(permRole.getRoleNumber());
+				response.put("code", "ADDFAILS");
+				response.put("message", "Perm Role already exists");
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+			}
+		
+		catch(RuntimeException e) {
+		}
+		
+		permRoleService.addPermRole(permRole);
+		response.put("code", "POSTSUCCESS");
+		response.put("message", "Perm Role added successfully");
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping("/update/permrole/{roleNumber}")

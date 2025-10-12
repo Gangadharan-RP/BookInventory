@@ -18,9 +18,6 @@ public class StateServiceImpl implements StateService {
 	@Override
 	public State addState(State state) {
 		// TODO Auto-generated method stub
-		if(stateRepository.existsById(state.getStateCode())) {
-			throw new RuntimeException("State Already Exists");
-		}
 		return stateRepository.save(state);
 	}
 
@@ -33,7 +30,10 @@ public class StateServiceImpl implements StateService {
 	@Override
 	public State getStateByCode(String code) {
 		// TODO Auto-generated method stub
-		return stateRepository.getByStateCode(code);
+		State state = stateRepository.getByStateCode(code);
+		if(state==null)
+			throw new RuntimeException(); 
+		return state;
 	}
 
 	@Override

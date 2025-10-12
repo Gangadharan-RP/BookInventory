@@ -1,6 +1,11 @@
 package com.example.bookInventory.controller;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +25,10 @@ public class ReviewerController {
 	@Autowired
 	private ReviewerService reviewerService;
 	
+	@GetMapping()
+	public ResponseEntity<List<Reviewer>> getAllReviewer(){
+		return ResponseEntity.ok(reviewerService.getAllReviewer());
+	}
 	
 	@GetMapping("/{reviewerId}")
 	public ResponseEntity<Reviewer> getReviewerById(@PathVariable Integer reviewerId){
@@ -27,8 +36,22 @@ public class ReviewerController {
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<Reviewer> addReviewer(@RequestBody Reviewer reviewer){
-		return ResponseEntity.ok(reviewerService.addReviewer(reviewer));
+	public ResponseEntity<Map<String,String>> addReviewer(@RequestBody Reviewer reviewer){
+		Map<String, String> response = new LinkedHashMap<>();
+		try {
+				reviewerService.getReviewerById(reviewer.getReviewerId());
+				response.put("code", "ADDFAILS");
+				response.put("message", "Reviewer already exists");
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+			}
+		
+		catch(RuntimeException e) {
+		}
+		
+		reviewerService.addReviewer(reviewer);
+		response.put("code", "POSTSUCCESS");
+		response.put("message", "Reviewer added successfully");
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping("/update/name/{reviewerId}")

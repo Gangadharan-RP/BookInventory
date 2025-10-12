@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,19 @@ public class BookConditionServiceImpl implements BookConditionService{
 	
 	@Autowired
 	private BookConditionRepository bookConditionRepository;
+	
+	@Override
+	public List<BookCondition> getAllBookCondition(){
+		return bookConditionRepository.findAll();
+	}
 
 	@Override
 	public BookCondition getBookByRank(Integer ranks) {
 		// TODO Auto-generated method stub
-		return bookConditionRepository.getByRanks(ranks);
+		BookCondition bookCondition = bookConditionRepository.getByRanks(ranks);
+		if(bookCondition == null)
+			throw new RuntimeException();
+		return bookCondition;
 	}
 
 	@Override

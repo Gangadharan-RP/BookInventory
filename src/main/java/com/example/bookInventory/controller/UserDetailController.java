@@ -1,7 +1,12 @@
 package com.example.bookInventory.controller;
 
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,31 +24,50 @@ import com.example.bookInventory.service.UserDetailService;
 public class UserDetailController {
 	
 	@Autowired
-	private UserDetailService userDetService;
+	private UserDetailService userDetailService;
+	
+	@GetMapping()
+	public ResponseEntity<List<UserDetail>> getAllUser(){
+		return ResponseEntity.ok(userDetailService.getAllUser());
+	}
 	
 	@GetMapping("/{userId}")
 	public ResponseEntity<UserDetail> getUserById(@PathVariable Integer userId){
-		return ResponseEntity.ok(userDetService.getUserById(userId));
+		return ResponseEntity.ok(userDetailService.getUserById(userId));
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<UserDetail> addUser(@RequestBody UserDetail userDetails){
-		return ResponseEntity.ok(userDetService.addUser(userDetails));
+	public ResponseEntity<Map<String,String>> addUser(@RequestBody UserDetail userDetails){
+		Map<String, String> response = new LinkedHashMap<>();
+		try {
+				userDetailService.getUserById(userDetails.getUserId());
+				response.put("code", "ADDFAILS");
+				response.put("message", "User already exists");
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+			}
+		
+		catch(RuntimeException e) {
+		}
+		
+		userDetailService.addUser(userDetails);
+		response.put("code", "POSTSUCCESS");
+		response.put("message", "User added successfully");
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping("/update/phonenumber/{userId}")
 	public ResponseEntity<UserDetail> updatePhoneNumberById(@PathVariable Integer userId, @RequestBody String phonenumber){
-		return ResponseEntity.ok(userDetService.updatePhoneNumber(userId, phonenumber));
+		return ResponseEntity.ok(userDetailService.updatePhoneNumber(userId, phonenumber));
 	}
 	
 	@PutMapping("/update/firstname/{userId}")
 	public ResponseEntity<UserDetail> updateFirstNameById(@PathVariable Integer userId, @RequestBody String firstName){
-		return ResponseEntity.ok(userDetService.updateFirstName(userId, firstName));
+		return ResponseEntity.ok(userDetailService.updateFirstName(userId, firstName));
 	}
 	
 	@PutMapping("/update/lastname/{userId}")
 	public ResponseEntity<UserDetail> updateLastNameById(@PathVariable Integer userId, @RequestBody String lastName){
-		return ResponseEntity.ok(userDetService.updateLastName(userId, lastName));
+		return ResponseEntity.ok(userDetailService.updateLastName(userId, lastName));
 	}
 	
 	

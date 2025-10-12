@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +13,26 @@ import com.example.bookInventory.service.UserDetailService;
 public class UserDetailServiceImpl implements UserDetailService {
 	
 	@Autowired
-	private UserDetailRepository userDetRepository;
+	private UserDetailRepository userDetailRepository;
+	
+	@Override
+	public List<UserDetail> getAllUser(){
+		return userDetailRepository.findAll();
+	}
 
 	@Override
-	public UserDetail addUser(UserDetail userDet) {
+	public UserDetail addUser(UserDetail userDetail) {
 		// TODO Auto-generated method stub
-		if(userDetRepository.existsByUserId(userDet.getUserId())) {
-			throw new RuntimeException("User Already Exists");
-		}
-		return userDetRepository.save(userDet);
+		return userDetailRepository.save(userDetail);
 	}
 
 	@Override
 	public UserDetail getUserById(Integer userId) {
 		// TODO Auto-generated method stub
-		return userDetRepository.findByUserId(userId);
+		UserDetail userDetail = userDetailRepository.findByUserId(userId);
+		if(userDetail==null)
+			throw new RuntimeException();
+		return userDetail;
 	}
 
 	@Override
@@ -33,7 +40,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 		// TODO Auto-generated method stub
 		UserDetail newUser = getUserById(userId);
 		newUser.setPhoneNumber(phoneNumber);
-		return userDetRepository.save(newUser);
+		return userDetailRepository.save(newUser);
 	}
 
 	@Override
@@ -41,7 +48,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 		// TODO Auto-generated method stub
 		UserDetail newUser = getUserById(userId);
 		newUser.setFirstName(firstName);
-		return userDetRepository.save(newUser);
+		return userDetailRepository.save(newUser);
 	}
 
 	@Override
@@ -49,7 +56,7 @@ public class UserDetailServiceImpl implements UserDetailService {
 		// TODO Auto-generated method stub
 		UserDetail newUser = getUserById(userId);
 		newUser.setLastName(lastName);
-		return userDetRepository.save(newUser);
+		return userDetailRepository.save(newUser);
 	}
 
 }

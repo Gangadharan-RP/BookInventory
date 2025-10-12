@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,19 @@ public class InventoryServiceImpl implements InventoryService{
 	
 	@Autowired
 	private InventoryRepository inventoryRepository;
+	
+	@Override
+	public List<Inventory> getAllInventory(){
+		return inventoryRepository.findAll();
+	}
 
 	@Override
 	public Inventory getInventoryById(Integer inventoryId) {
 		// TODO Auto-generated method stub
-		return inventoryRepository.getByInventoryId(inventoryId);
+		Inventory inventory = inventoryRepository.getByInventoryId(inventoryId);
+		if(inventory == null)
+			throw new RuntimeException();
+		return inventory;
 	}
 
 	@Override

@@ -1,8 +1,11 @@
 package com.example.bookInventory.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +36,22 @@ public class StateController {
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<State> addState(@RequestBody State state){
-		return ResponseEntity.ok(stateService.addState(state));
+	public ResponseEntity<Map<String,String>> addState(@RequestBody State state){
+		Map<String, String> response = new LinkedHashMap<>();
+		try {
+				stateService.getStateByCode(state.getStateCode());
+				response.put("code", "ADDFAILS");
+				response.put("message", "State already exists");
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+			}
+		
+		catch(RuntimeException e) {
+		}
+		
+		stateService.addState(state);
+		response.put("code", "POSTSUCCESS");
+		response.put("message", "State added successfully");
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@PutMapping("/update/statename/{code}")

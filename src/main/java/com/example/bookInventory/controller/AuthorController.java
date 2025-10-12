@@ -1,8 +1,11 @@
 package com.example.bookInventory.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bookInventory.entity.Author;
 import com.example.bookInventory.entity.Book;
+import com.example.bookInventory.exception.AuthorNotFoundException;
 import com.example.bookInventory.service.AuthorService;
 
 @RestController
@@ -28,8 +32,23 @@ public class AuthorController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Author> addAuthor(@RequestBody Author author){
-		return ResponseEntity.ok(authorService.addAuthor(author));
+	public ResponseEntity<Map<String,String>> addAuthor(@RequestBody Author author){
+		Map<String, String> response = new LinkedHashMap<>();
+		try {
+
+				authorService.getAuthorById(author.getAuthorId());
+				response.put("code", "ADDFAILS");
+				response.put("message", "Author already exists");
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+			}
+		
+		catch(AuthorNotFoundException e) {
+		}
+		
+		authorService.addAuthor(author);
+		response.put("code", "POSTSUCCESS");
+		response.put("message", "Author added successfully");
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
 	@GetMapping("/{authorId}")

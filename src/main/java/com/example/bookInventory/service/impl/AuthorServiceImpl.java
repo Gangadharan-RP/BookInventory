@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.bookInventory.entity.Author;
 import com.example.bookInventory.entity.Book;
 import com.example.bookInventory.entity.BookAuthor;
+import com.example.bookInventory.exception.AuthorNotFoundException;
 import com.example.bookInventory.repository.AuthorRepository;
 import com.example.bookInventory.repository.BookAuthorRepository;
 import com.example.bookInventory.repository.BookRepository;
@@ -27,11 +28,6 @@ public class AuthorServiceImpl implements AuthorService {
 	@Override
 	public Author addAuthor(Author author) {
 		// TODO Auto-generated method stub
-		if(authorRepository.existsById(author.getAuthorId()))
-		{
-			throw new RuntimeException("Author Already Exists");
-		}
-		
 		return authorRepository.save(author);
 	}
 
@@ -40,7 +36,7 @@ public class AuthorServiceImpl implements AuthorService {
 		// TODO Auto-generated method stub
 		
 		return authorRepository.findById(authorId)
-				.orElseThrow(()-> new RuntimeException("Author Not Found"));
+				.orElseThrow(()-> new AuthorNotFoundException("Author Not Found"));
 	}
 
 	@Override

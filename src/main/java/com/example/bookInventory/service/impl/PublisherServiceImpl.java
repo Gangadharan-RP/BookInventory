@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.bookInventory.entity.Publisher;
+import com.example.bookInventory.exception.PublisherNotFoundException;
 import com.example.bookInventory.repository.PublisherRepository;
 import com.example.bookInventory.service.PublisherService;
 
@@ -30,7 +31,12 @@ public class PublisherServiceImpl implements PublisherService{
 	@Override
 	public Publisher getPublisherById(Integer publisherId) {
 		// TODO Auto-generated method stub
-		return publisherRepository.getByPublisherId(publisherId);
+		Publisher publisher = publisherRepository.getByPublisherId(publisherId);
+		if (publisher == null) {
+        throw new PublisherNotFoundException();
+		}
+		return publisher;
+
 	}
 
 	@Override

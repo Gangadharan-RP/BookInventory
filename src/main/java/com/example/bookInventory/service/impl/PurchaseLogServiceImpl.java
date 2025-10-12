@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,11 @@ public class PurchaseLogServiceImpl implements PurchaseLogService{
 	
 	@Autowired
 	private PurchaseLogRepository purchaseLogRepository;
+	
+	@Override
+	public List<PurchaseLog> getAllLog() {
+		return purchaseLogRepository.findAll();
+	}
 
 	@Override
 	public PurchaseLog addLog(PurchaseLog purchaseLog) {

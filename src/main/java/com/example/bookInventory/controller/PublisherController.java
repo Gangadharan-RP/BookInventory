@@ -1,8 +1,11 @@
 package com.example.bookInventory.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bookInventory.entity.Publisher;
+import com.example.bookInventory.exception.PublisherNotFoundException;
 import com.example.bookInventory.service.PublisherService;
 
 @RestController
@@ -48,9 +52,25 @@ public class PublisherController {
 	}
 	
 	@PostMapping("/post")
-	public ResponseEntity<Publisher> addPublisher(@RequestBody Publisher publisher){
-		return ResponseEntity.ok(publisherService.addPublisher(publisher));
+	public ResponseEntity<Map<String, String>> addPublisher(@RequestBody Publisher publisher){
+		Map<String, String> response = new LinkedHashMap<>();
+		try {
+				publisherService.getPublisherById(publisher.getPublisherId());
+				response.put("code", "ADDFAILS");
+				response.put("message", "Publisher already exists");
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+			}
+		
+		catch(PublisherNotFoundException e) {
+		}
+		
+		publisherService.addPublisher(publisher);
+		response.put("code", "POSTSUCCESS");
+		response.put("message", "Publisher added successfully");
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
+	
+	
 	
 	@PutMapping("/update/name/{publisherId}")
 	public ResponseEntity<Publisher> updatePublisherNameById(@PathVariable Integer publisherId, @RequestBody String name){

@@ -1,5 +1,7 @@
 package com.example.bookInventory.service;
 
+import java.util.List;
+
 import com.example.bookInventory.entity.BookCondition;
 
 public interface BookConditionService {
@@ -8,4 +10,5 @@ public interface BookConditionService {
 	BookCondition updateFullDescByRank(Integer ranks, String fullDesc);
 	BookCondition updateDescByRank(Integer ranks, String Desc);
 	BookCondition updatePriceByRank(Integer rankss, Double price);
+	List<BookCondition> getAllBookCondition();
 }

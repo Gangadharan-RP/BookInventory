@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,11 @@ import com.example.bookInventory.service.ReviewerService;
 public class ReviewerServiceImpl implements ReviewerService{
 	@Autowired
 	private ReviewerRepository reviewerRepository;
+	
+	@Override
+	public List<Reviewer> getAllReviewer(){
+		return reviewerRepository.findAll();
+	}
 
 	@Override
 	public Reviewer addReviewer(Reviewer reviewer) {
@@ -21,7 +28,10 @@ public class ReviewerServiceImpl implements ReviewerService{
 	@Override
 	public Reviewer getReviewerById(Integer reviewerId) {
 		// TODO Auto-generated method stub
-		return reviewerRepository.getByReviewerId(reviewerId);
+		Reviewer reviewer = reviewerRepository.getByReviewerId(reviewerId);
+		if(reviewer == null)
+			throw new RuntimeException();
+		return reviewer;
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,19 @@ public class BookReviewServiceImpl implements BookReviewService{
 	
 	@Autowired
 	private BookReviewRepository bookReviewRepository;
+	
+	@Override
+	public List<BookReview> getAllBookReview(){
+		return bookReviewRepository.findAll();
+	}
 
 	@Override
 	public BookReview getBookReviewByIsbn(String isbn) {
 		// TODO Auto-generated method stub
-		return bookReviewRepository.getByIsbn(isbn);
+		BookReview bookReview = bookReviewRepository.getByIsbn(isbn);
+		if(bookReview == null)
+			throw new RuntimeException();
+		return bookReview;
 	}
 
 	@Override

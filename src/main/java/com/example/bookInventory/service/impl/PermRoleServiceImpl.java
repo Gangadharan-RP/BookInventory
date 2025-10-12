@@ -1,5 +1,7 @@
 package com.example.bookInventory.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,11 @@ public class PermRoleServiceImpl implements PermRoleService{
 	
 	@Autowired
 	private PermRoleRepository permRoleRepository;
+	
+	@Override
+	public List<PermRole> getAllPermRole(){
+		return permRoleRepository.findAll();
+	}
 
 	@Override
 	public PermRole addPermRole(PermRole permRole) {
@@ -22,7 +29,10 @@ public class PermRoleServiceImpl implements PermRoleService{
 	@Override
 	public PermRole getPermRoleById(Integer roleNumber) {
 		// TODO Auto-generated method stub
-		return permRoleRepository.getByRoleNumber(roleNumber);
+		PermRole permRole = permRoleRepository.getByRoleNumber(roleNumber);
+		if(permRole==null)
+			throw new RuntimeException();
+		return permRole;
 	}
 
 	@Override

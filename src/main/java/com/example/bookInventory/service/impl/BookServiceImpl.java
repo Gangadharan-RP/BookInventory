@@ -17,9 +17,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public Book addBook(Book book) {
-		// TODO Auto-generated method stub
-		if(bookRepository.existsById(book.getIsbn()))
-			throw new RuntimeException("Book Already Exists");
+		// TODO Auto-generated method stub;
 		return bookRepository.save(book);
 	}
 
