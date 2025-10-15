@@ -66,14 +66,14 @@ public class AuthorController {
 		return ResponseEntity.ok(authorService.getAuthorByLastName(lastName));
 	}
 	
-	@PutMapping("/update/firstName/{authorId}")
-	public ResponseEntity<Author> updateFirstName(@PathVariable Long authorId,@RequestBody String firstName){
-		return ResponseEntity.ok(authorService.updateAuthorFirstName(authorId, firstName));
+	@PutMapping("/update/firstname/{authorId}")
+	public ResponseEntity<Author> updateFirstName(@PathVariable Long authorId,@RequestBody Author author){
+		return ResponseEntity.ok(authorService.updateAuthorFirstName(authorId, author.getFirstName()));
 	}
 	
-	@PutMapping("/update/lastName/{authorId}")
-	public ResponseEntity<Author> updateLastName(@PathVariable Long authorId,@RequestBody String lastName){
-		return ResponseEntity.ok(authorService.updateAuthorLastName(authorId, lastName));
+	@PutMapping("/update/lastname/{authorId}")
+	public ResponseEntity<Author> updateLastName(@PathVariable Long authorId,@RequestBody Author author){
+		return ResponseEntity.ok(authorService.updateAuthorLastName(authorId, author.getLastName()));
 	}
 	
 	@GetMapping("/books/{authorId}")

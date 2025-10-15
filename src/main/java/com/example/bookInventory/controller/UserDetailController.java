@@ -56,18 +56,18 @@ public class UserDetailController {
 	}
 	
 	@PutMapping("/update/phonenumber/{userId}")
-	public ResponseEntity<UserDetail> updatePhoneNumberById(@PathVariable Integer userId, @RequestBody String phonenumber){
-		return ResponseEntity.ok(userDetailService.updatePhoneNumber(userId, phonenumber));
+	public ResponseEntity<UserDetail> updatePhoneNumberById(@PathVariable Integer userId, @RequestBody UserDetail userDetail){
+		return ResponseEntity.ok(userDetailService.updatePhoneNumber(userId, userDetail.getPhoneNumber()));
 	}
 	
 	@PutMapping("/update/firstname/{userId}")
-	public ResponseEntity<UserDetail> updateFirstNameById(@PathVariable Integer userId, @RequestBody String firstName){
-		return ResponseEntity.ok(userDetailService.updateFirstName(userId, firstName));
+	public ResponseEntity<UserDetail> updateFirstNameById(@PathVariable Integer userId, @RequestBody UserDetail userDetail){
+		return ResponseEntity.ok(userDetailService.updateFirstName(userId, userDetail.getFirstName()));
 	}
 	
 	@PutMapping("/update/lastname/{userId}")
-	public ResponseEntity<UserDetail> updateLastNameById(@PathVariable Integer userId, @RequestBody String lastName){
-		return ResponseEntity.ok(userDetailService.updateLastName(userId, lastName));
+	public ResponseEntity<UserDetail> updateLastNameById(@PathVariable Integer userId, @RequestBody UserDetail userDetail){
+		return ResponseEntity.ok(userDetailService.updateLastName(userId, userDetail.getLastName()));
 	}
 	
 	

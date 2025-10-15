@@ -71,23 +71,23 @@ public class BookController {
 	}
 	
 	@PutMapping("/update/title/{isbn}")
-	public ResponseEntity<Book> updateTitle(@PathVariable String isbn, @RequestBody String newTitle){
-		return ResponseEntity.ok(bookService.updateBookTitle(isbn, newTitle));
+	public ResponseEntity<Book> updateTitle(@PathVariable String isbn, @RequestBody Book book){
+		return ResponseEntity.ok(bookService.updateBookTitle(isbn, book.getTitle()));
 	}
 	
 	@PutMapping("/update/description/{isbn}")
-	public ResponseEntity<Book> updateDescription(@PathVariable String isbn, @RequestBody String newDesc){
-		return ResponseEntity.ok(bookService.updateBookDescription(isbn, newDesc));
+	public ResponseEntity<Book> updateDescription(@PathVariable String isbn, @RequestBody Book book){
+		return ResponseEntity.ok(bookService.updateBookDescription(isbn, book.getDescription()));
 	}
 	
 	@PutMapping("/update/category/{isbn}")
-	public ResponseEntity<Book> updateCategory(@PathVariable String isbn, @RequestBody Integer newCategory){
-		return ResponseEntity.ok(bookService.updateBookCategory(isbn,newCategory));
+	public ResponseEntity<Book> updateCategory(@PathVariable String isbn, @RequestBody Book book){
+		return ResponseEntity.ok(bookService.updateBookCategory(isbn,book.getCategory()));
 	}
 	
 	@PutMapping("/update/publisher/{isbn}")
-	public ResponseEntity<Book> updatePublisher(@PathVariable String isbn, @RequestBody Integer newPublisher){
-		return ResponseEntity.ok(bookService.updateBookPublisher(isbn, newPublisher));
+	public ResponseEntity<Book> updatePublisher(@PathVariable String isbn, @RequestBody Book book){
+		return ResponseEntity.ok(bookService.updateBookPublisher(isbn, book.getPublisherId()));
 	}
 	
 	

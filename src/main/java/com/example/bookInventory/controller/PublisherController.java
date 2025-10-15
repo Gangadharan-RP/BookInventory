@@ -73,17 +73,17 @@ public class PublisherController {
 	
 	
 	@PutMapping("/update/name/{publisherId}")
-	public ResponseEntity<Publisher> updatePublisherNameById(@PathVariable Integer publisherId, @RequestBody String name){
-		return ResponseEntity.ok(publisherService.updateNameById(publisherId, name));
+	public ResponseEntity<Publisher> updatePublisherNameById(@PathVariable Integer publisherId, @RequestBody Publisher publisher){
+		return ResponseEntity.ok(publisherService.updateNameById(publisherId, publisher.getName()));
 	}
 	
 	@PutMapping("/update/city/{publisherId}")
-	public ResponseEntity<Publisher> updatePublisherCityById(@PathVariable Integer publisherId, @RequestBody String city){
-		return ResponseEntity.ok(publisherService.updateCityById(publisherId, city));
+	public ResponseEntity<Publisher> updatePublisherCityById(@PathVariable Integer publisherId, @RequestBody Publisher publisher){
+		return ResponseEntity.ok(publisherService.updateCityById(publisherId, publisher.getCity()));
 	}
 	
 	@PutMapping("/update/stateCode/{publisherId}")
-	public ResponseEntity<Publisher> updatePublisherStateById(@PathVariable Integer publisherId, @RequestBody String stateCode){
-		return ResponseEntity.ok(publisherService.updateStateById(publisherId, stateCode));
+	public ResponseEntity<Publisher> updatePublisherStateById(@PathVariable Integer publisherId, @RequestBody Publisher publisher){
+		return ResponseEntity.ok(publisherService.updateStateById(publisherId, publisher.getStateCode()));
 	}
 }

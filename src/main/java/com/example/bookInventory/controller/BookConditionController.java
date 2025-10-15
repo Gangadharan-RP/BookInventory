@@ -56,17 +56,17 @@ public class BookConditionController {
 	}
 	
 	@PutMapping("/update/desc/{ranks}")
-	public ResponseEntity<BookCondition> updateDescByRank(@PathVariable Integer ranks, @RequestBody String desc){
-		return ResponseEntity.ok(bookConditionService.updateDescByRank(ranks, desc));
+	public ResponseEntity<BookCondition> updateDescByRank(@PathVariable Integer ranks, @RequestBody BookCondition bookCondition){
+		return ResponseEntity.ok(bookConditionService.updateDescByRank(ranks, bookCondition.getDescription()));
 	}
 	
 	@PutMapping("/update/fulldesc/{ranks}")
-	public ResponseEntity<BookCondition> updateFullDescByRank(@PathVariable Integer ranks, @RequestBody String fullDesc){
-		return ResponseEntity.ok(bookConditionService.updateFullDescByRank(ranks, fullDesc));
+	public ResponseEntity<BookCondition> updateFullDescByRank(@PathVariable Integer ranks, @RequestBody BookCondition bookCondition){
+		return ResponseEntity.ok(bookConditionService.updateFullDescByRank(ranks, bookCondition.getFullDesc()));
 	}
 	
 	@PutMapping("/update/price/{ranks}")
-	public ResponseEntity<BookCondition> updatePriceByRank(@PathVariable Integer ranks, @RequestBody Double price){
-		return ResponseEntity.ok(bookConditionService.updatePriceByRank(ranks, price));
+	public ResponseEntity<BookCondition> updatePriceByRank(@PathVariable Integer ranks, @RequestBody BookCondition bookCondition){
+		return ResponseEntity.ok(bookConditionService.updatePriceByRank(ranks, bookCondition.getPrice()));
 	}
 }

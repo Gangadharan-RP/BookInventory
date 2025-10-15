@@ -55,7 +55,7 @@ public class InventoryController {
 	}
 	
 	@PutMapping("/update/purchased/{inventoryId}")
-	public ResponseEntity<Inventory> updatePurchasedById(@PathVariable Integer inventoryId, @RequestBody Integer purchased){
-		return ResponseEntity.ok(inventoryService.updatePurchasedById(inventoryId, purchased));
+	public ResponseEntity<Inventory> updatePurchasedById(@PathVariable Integer inventoryId, @RequestBody Inventory inventory){
+		return ResponseEntity.ok(inventoryService.updatePurchasedById(inventoryId, inventory.getPurchased()));
 	}
 }

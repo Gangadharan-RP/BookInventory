@@ -56,7 +56,7 @@ public class CategoryController {
 	}
 	
 	@PutMapping("/update/catdesc/{catId}")
-	public ResponseEntity<Category> updateCatDescByCatId(@PathVariable Integer catId, @RequestBody String catDesc){
-		return ResponseEntity.ok(categoryService.updateCatDescByCatId(catId, catDesc));
+	public ResponseEntity<Category> updateCatDescByCatId(@PathVariable Integer catId, @RequestBody Category category){
+		return ResponseEntity.ok(categoryService.updateCatDescByCatId(catId, category.getCatDescription()));
 	}
 }

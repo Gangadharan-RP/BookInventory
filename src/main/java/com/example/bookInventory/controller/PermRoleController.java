@@ -56,7 +56,7 @@ public class PermRoleController {
 	}
 	
 	@PutMapping("/update/permrole/{roleNumber}")
-	public ResponseEntity<PermRole> updatePermRoleByRoleNumber(@PathVariable Integer roleNumber, @RequestBody String permRole){
-		return ResponseEntity.ok(permRoleService.updatePermRoleById(roleNumber, permRole));
+	public ResponseEntity<PermRole> updatePermRoleByRoleNumber(@PathVariable Integer roleNumber, @RequestBody PermRole permRole){
+		return ResponseEntity.ok(permRoleService.updatePermRoleById(roleNumber, permRole.getPermRole()));
 	}
 }

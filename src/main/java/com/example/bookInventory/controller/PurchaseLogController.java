@@ -38,7 +38,7 @@ public class PurchaseLogController {
 	}
 	
 	@PutMapping("/update/inventoryid/{userId}")
-	public ResponseEntity<PurchaseLog> updateInventoryId(@PathVariable Integer userId, @RequestBody Integer inventoryId){
-		return ResponseEntity.ok(purchaseLogService.updateInventoryIdByUserId(userId, inventoryId));
+	public ResponseEntity<PurchaseLog> updateInventoryId(@PathVariable Integer userId, @RequestBody PurchaseLog purchaseLog){
+		return ResponseEntity.ok(purchaseLogService.updateInventoryIdByUserId(userId, purchaseLog.getInventoryId()));
 	}
 }

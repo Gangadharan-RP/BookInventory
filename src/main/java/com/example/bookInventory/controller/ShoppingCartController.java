@@ -38,7 +38,7 @@ public class ShoppingCartController {
 	}
 	
 	@PutMapping("/update/isbn/{userId}")
-	public ResponseEntity<ShoppingCart> updateIsbnByUserId(@PathVariable Integer userId, @RequestBody String isbn){
-		return ResponseEntity.ok(shoppingCartService.updateIsbnByUserId(userId, isbn));
+	public ResponseEntity<ShoppingCart> updateIsbnByUserId(@PathVariable Integer userId, @RequestBody ShoppingCart shoppingCart){
+		return ResponseEntity.ok(shoppingCartService.updateIsbnByUserId(userId, shoppingCart.getIsbn()));
 	}
 }

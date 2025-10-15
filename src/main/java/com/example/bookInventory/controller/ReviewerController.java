@@ -55,12 +55,12 @@ public class ReviewerController {
 	}
 	
 	@PutMapping("/update/name/{reviewerId}")
-	public ResponseEntity<Reviewer> updateNameById(@PathVariable Integer reviewerId, @RequestBody String name){
-		return ResponseEntity.ok(reviewerService.updateReviewerNameById(reviewerId, name));
+	public ResponseEntity<Reviewer> updateNameById(@PathVariable Integer reviewerId, @RequestBody Reviewer reviewer){
+		return ResponseEntity.ok(reviewerService.updateReviewerNameById(reviewerId, reviewer.getName()));
 	}
 	
 	@PutMapping("/update/employedBy/{reviewerId}")
-	public ResponseEntity<Reviewer> updateEmployementById(@PathVariable Integer reviewerId, @RequestBody String employedBy){
-		return ResponseEntity.ok(reviewerService.updateReviewerEmployementById(reviewerId, employedBy));
+	public ResponseEntity<Reviewer> updateEmployementById(@PathVariable Integer reviewerId, @RequestBody Reviewer reviewer){
+		return ResponseEntity.ok(reviewerService.updateReviewerEmployementById(reviewerId, reviewer.getEmployedBy()));
 	}
 }

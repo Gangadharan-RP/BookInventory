@@ -55,12 +55,12 @@ public class BookReviewController {
 	}
 	
 	@PutMapping("/update/rating/{isbn}")
-	public ResponseEntity<BookReview> updateRatingByIsbn(@PathVariable String isbn, @RequestBody Integer rating){
-		return ResponseEntity.ok(bookReviewService.updateRatingByIsbn(isbn, rating));
+	public ResponseEntity<BookReview> updateRatingByIsbn(@PathVariable String isbn, @RequestBody BookReview bookReview){
+		return ResponseEntity.ok(bookReviewService.updateRatingByIsbn(isbn, bookReview.getRating()));
 	}
 	
 	@PutMapping("/update/comment/{isbn}")
-	public ResponseEntity<BookReview> updateCommentByIsbn(@PathVariable String isbn, @RequestBody String comment){
-		return ResponseEntity.ok(bookReviewService.updateCommentByIsbn(isbn, comment));
+	public ResponseEntity<BookReview> updateCommentByIsbn(@PathVariable String isbn, @RequestBody BookReview bookReview){
+		return ResponseEntity.ok(bookReviewService.updateCommentByIsbn(isbn, bookReview.getComment()));
 	}
 }
